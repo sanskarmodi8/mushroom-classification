@@ -1,0 +1,20 @@
+scikit-learn
+pandas
+numpy
+matplotlib
+plotly
+dvc
+mlflow
+jupyter
+notebook
+python-box
+pyYAML
+ensure
+joblib
+fastapi
+gdown
+uvicorn
+pydantic
+python-multipart
+xgboost
+-e .
