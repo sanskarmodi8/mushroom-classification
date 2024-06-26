@@ -81,8 +81,7 @@ def load_json(path: Path) -> ConfigBox:
     return ConfigBox(content)
 
 
-@ensure_annotations
-def save_bin(data: Any, path: Path):
+def save_bin(data, path: Path):
     """save binary file
 
     Args:
@@ -93,8 +92,7 @@ def save_bin(data: Any, path: Path):
     logger.info(f"binary file saved at: {path}")
 
 
-@ensure_annotations
-def load_bin(path: Path) -> Any:
+def load_bin(path: Path):
     """load binary data
 
     Args:

@@ -1,1 +1,8 @@
-key: value
+model_params:
+  ccp_alpha: 0.0
+  criterion: gini
+  min_impurity_decrease: 0.0
+  min_samples_leaf: 1
+  min_samples_split: 2
+  min_weight_fraction_leaf: 0.0
+  splitter: best

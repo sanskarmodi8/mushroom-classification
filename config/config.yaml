@@ -10,3 +10,15 @@ data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_ingestion/mushrooms.csv
   transformed_data_dir: artifacts/data_transformation
+
+model_training:
+  root_dir: artifacts/model_training
+  transformed_data: artifacts/data_transformation/df_transformed.csv
+  model: artifacts/model_training/decision_tree_model.joblib
+  test_data: artifacts/model_training/test_data.csv
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  model: artifacts/model_training/decision_tree_model.joblib
+  test_data: artifacts/model_training/test_data.csv
+  scores: artifacts/model_evaluation/scores.json
