@@ -5,3 +5,8 @@ data_ingestion:
   source_url: https://drive.google.com/file/d/1MLRXc80tYd5-Sco-v0JyDDWYalq8wN3i/view?usp=sharing
   file_path: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/mushrooms.csv
+  transformed_data_dir: artifacts/data_transformation

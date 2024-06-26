@@ -1,4 +1,4 @@
-from MushroomClassification.entity.config_entity import DataIngestionConfig
+from MushroomClassification.entity.config_entity import DataIngestionConfig, DataTransformationConfig
 from MushroomClassification.constants import PARAMS_FILE_PATH, CONFIG_FILE_PATH
 from MushroomClassification.utils.common import read_yaml, create_directories
 from pathlib import Path
@@ -16,3 +16,9 @@ class ConfigurationManager:
                                 file_path=config.file_path,
                                 unzip_dir=config.unzip_dir)
     
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+        create_directories([Path(config.root_dir), Path(config.transformed_data_dir)])
+        return DataTransformationConfig(root_dir=config.root_dir,
+                                        data_path=config.data_path,
+                                        transformed_data_dir=config.transformed_data_dir)
