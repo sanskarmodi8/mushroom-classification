@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from NetworkIntrusionDetection import logger
+from MushroomClassification import logger
 import json
 import joblib
 from ensure import ensure_annotations
