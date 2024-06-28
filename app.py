@@ -2,10 +2,11 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from src.MushroomClassification.pipeline.prediction import Prediction
-from pydantic import BaseModel
+from pydantic import BaseModel, constr, Field
 import uvicorn
 import os
 from dotenv import load_dotenv
+
 
 # load the env variables for the mlflow tracking
 load_dotenv()
@@ -22,30 +23,30 @@ app.add_middleware(
 )
 
 class Input(BaseModel):
-    bruises: str
-    odor: str
-    gill_spacing: str
-    gill_size: str
-    gill_color: str
-    stalk_surface_above_ring: str
-    stalk_surface_below_ring: str
-    ring_type: str
-    spore_print_color: str
-    population: str
-    
+    bruises: str = Field(..., description="Choose 't' for bruises or 'f' otherwise", pattern='[tf]')
+    odor: str = Field(..., description="Choose odor from: 'f' for foul smell, 'n' for no smell, or 'o' for other", pattern='[fno]')
+    gill_spacing: str = Field(..., description="Choose gill spacing: 'w' for crowded, 'o' for other", pattern='[wo]')
+    gill_size: str = Field(..., description="Choose gill size: 'b' for broad , 'n' for narrow", pattern='[bn]')
+    gill_color: str = Field(..., description="Choose gill color: 'b' for buff, 'o' for others", pattern='[bo]')
+    stalk_surface_above_ring: str = Field(..., description="Choose stalk surface above ring: 'k' for silky, 's' for smooth, 'o' for others", pattern='[kso]')
+    stalk_surface_below_ring: str = Field(..., description="Choose stalk surface below ring: 'k' for silky, 's' for smooth, 'o' for others", pattern='[kso]')
+    ring_type: str = Field(..., description="Choose ring type: 'l' for large, 'p' for pendant, 'o' for others", pattern='[lpo]')
+    spore_print_color: str = Field(..., description="Choose spore print color: 'h' for chocolate, 'k' for black, 'n' for brown, 'w' for white, 'o' for others", pattern='[hknwo]')
+    population: str = Field(..., description="Choose population: 'v' for several, 'o' for others", pattern='[vo]')
+
     class Config:
         json_schema_extra = {
             "example": {
                 "bruises": "f",
                 "odor": "f",
-                "gill_spacing": "c",
+                "gill_spacing": "o",
                 "gill_size": "b",
-                "gill_color": "k",
+                "gill_color": "o",
                 "stalk_surface_above_ring": "k",
                 "stalk_surface_below_ring": "k",
                 "ring_type": "l",
-                "spore_print_color": "k",
-                "population": "a"
+                "spore_print_color": "h",
+                "population": "v"
             }
         }
 
