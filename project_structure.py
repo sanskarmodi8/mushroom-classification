@@ -35,7 +35,8 @@ list_of_files = [
     "setup.py",
     "notebook/notebook.ipynb",
     "app.py",
-    "Dockerfile"
+    "Dockerfile",
+    ".env"
 ]
 
 for filepath in list_of_files:

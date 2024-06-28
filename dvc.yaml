@@ -1,0 +1,44 @@
+stages:
+  data_ingestion:
+    cmd: python src/MushroomClassification/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/MushroomClassification/pipeline/stage_01_data_ingestion.py
+      - src/MushroomClassification/components/data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/mushrooms.csv
+
+
+  data_transformation:
+    cmd: python src/MushroomClassification/pipeline/stage_02_data_transformation.py
+    deps:
+      - src/MushroomClassification/pipeline/stage_02_data_transformation.py
+      - src/MushroomClassification/components/data_transformation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/mushrooms.csv
+    outs:
+      - artifacts/data_transformation/df_transformed.csv
+
+  model_training:
+    cmd: python src/MushroomClassification/pipeline/stage_03_model_training.py
+    deps:
+      - src/MushroomClassification/pipeline/stage_03_model_training.py
+      - src/MushroomClassification/components/model_training.py
+      - config/config.yaml
+      - artifacts/data_transformation/df_transformed.csv
+    params:
+      - model_params
+    outs:
+      - artifacts/model_training/decision_tree_model.joblib
+      - artifacts/model_training/test_data.csv
+
+  model_evaluation:
+    cmd: python src/MushroomClassification/pipeline/stage_04_model_evaluation.py
+    deps:
+      - src/MushroomClassification/pipeline/stage_04_model_evaluation.py
+      - src/MushroomClassification/components/model_evaluation.py
+      - config/config.yaml
+      - artifacts/model_training/decision_tree_model.joblib
+      - artifacts/model_training/test_data.csv
+    outs:
+      - artifacts/model_evaluation/scores.json

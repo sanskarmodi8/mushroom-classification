@@ -42,11 +42,6 @@ class ModelEvaluation:
             
             # make predictions
             X_test, y_test = self.df.drop("class", axis=1), self.df["class"]
-            
-            # Drop the 'Unnamed: 0' column if it exists
-            if 'Unnamed: 0' in X_test.columns:
-                X_test = X_test.drop(columns=['Unnamed: 0'])
-            
             y_pred_test = self.model.predict(X_test)
             
             # Calculate test set metrics

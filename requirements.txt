@@ -17,4 +17,5 @@ uvicorn
 pydantic
 python-multipart
 xgboost
+python-dotenv
 -e .

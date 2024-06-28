@@ -3,6 +3,10 @@ from src.MushroomClassification.pipeline.stage_02_data_transformation import Dat
 from src.MushroomClassification.pipeline.stage_03_model_training import ModelTrainingPipeline
 from src.MushroomClassification.pipeline.stage_04_model_evaluation import ModelEvaluationPipeline
 from src.MushroomClassification import logger
+from dotenv import load_dotenv
+
+# load the env variables for the mlflow tracking
+# load_dotenv()
 
 STAGE_NAME = "DATA INGESTION STAGE"
 try:

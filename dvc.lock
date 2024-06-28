@@ -1,0 +1,112 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/MushroomClassification/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 9d1f9f9118274b406a9e0d23e07daf3f
+      size: 1062
+    - path: src/MushroomClassification/components/data_ingestion.py
+      hash: md5
+      md5: d371bdadaf292243fdcbf212fa806469
+      size: 1263
+    - path: src/MushroomClassification/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 265e91cea2c96de8391adc3ceabb56e6
+      size: 902
+    outs:
+    - path: artifacts/data_ingestion/mushrooms.csv
+      hash: md5
+      md5: 20e36f0bcc0fec359eb394ee947237dd
+      size: 374003
+  data_transformation:
+    cmd: python src/MushroomClassification/pipeline/stage_02_data_transformation.py
+    deps:
+    - path: artifacts/data_ingestion/mushrooms.csv
+      hash: md5
+      md5: 20e36f0bcc0fec359eb394ee947237dd
+      size: 374003
+    - path: config/config.yaml
+      hash: md5
+      md5: 9d1f9f9118274b406a9e0d23e07daf3f
+      size: 1062
+    - path: src/MushroomClassification/components/data_transformation.py
+      hash: md5
+      md5: e0c4ab33f2010d1a4c82124a9af4f69f
+      size: 3062
+    - path: src/MushroomClassification/pipeline/stage_02_data_transformation.py
+      hash: md5
+      md5: 3c9ff4b58e031edeea5311349f3c58ed
+      size: 869
+    outs:
+    - path: artifacts/data_transformation/df_transformed.csv
+      hash: md5
+      md5: 059178059076923e269a0560dddb2735
+      size: 325277
+  model_training:
+    cmd: python src/MushroomClassification/pipeline/stage_03_model_training.py
+    deps:
+    - path: artifacts/data_transformation/df_transformed.csv
+      hash: md5
+      md5: 059178059076923e269a0560dddb2735
+      size: 325277
+    - path: config/config.yaml
+      hash: md5
+      md5: 9d1f9f9118274b406a9e0d23e07daf3f
+      size: 1062
+    - path: src/MushroomClassification/components/model_training.py
+      hash: md5
+      md5: 2f8e9b29d7de219852d97afb34aa97c2
+      size: 2368
+    - path: src/MushroomClassification/pipeline/stage_03_model_training.py
+      hash: md5
+      md5: f8be40c565ebc91899abed3e2e1dd6bd
+      size: 940
+    params:
+      params.yaml:
+        model_params:
+          ccp_alpha: 0.0
+          criterion: gini
+          min_impurity_decrease: 0.0
+          min_samples_leaf: 1
+          min_samples_split: 2
+          min_weight_fraction_leaf: 0.0
+          splitter: best
+    outs:
+    - path: artifacts/model_training/decision_tree_model.joblib
+      hash: md5
+      md5: 9f9c4ddc7e0f43fe69419fc708a33339
+      size: 4505
+    - path: artifacts/model_training/test_data.csv
+      hash: md5
+      md5: 2e1d9396b68e32cf5a4d3378d9f888f8
+      size: 65317
+  model_evaluation:
+    cmd: python src/MushroomClassification/pipeline/stage_04_model_evaluation.py
+    deps:
+    - path: artifacts/model_training/decision_tree_model.joblib
+      hash: md5
+      md5: 9f9c4ddc7e0f43fe69419fc708a33339
+      size: 4505
+    - path: artifacts/model_training/test_data.csv
+      hash: md5
+      md5: 2e1d9396b68e32cf5a4d3378d9f888f8
+      size: 65317
+    - path: config/config.yaml
+      hash: md5
+      md5: 9d1f9f9118274b406a9e0d23e07daf3f
+      size: 1062
+    - path: src/MushroomClassification/components/model_evaluation.py
+      hash: md5
+      md5: 713285b164fb06f0c7cbc1ca7b26a263
+      size: 2422
+    - path: src/MushroomClassification/pipeline/stage_04_model_evaluation.py
+      hash: md5
+      md5: fbf9d87d257b359b05b470b1f29e68ec
+      size: 912
+    outs:
+    - path: artifacts/model_evaluation/scores.json
+      hash: md5
+      md5: 7ddec10a00a3f6f8e337d6bda7e1d00b
+      size: 85
