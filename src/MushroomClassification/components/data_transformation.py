@@ -4,7 +4,6 @@ from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.pipeline import Pipeline
 import pandas as pd
 from MushroomClassification import logger
-import pickle
 
 class DataTransformation:
     def __init__(self, data_transformation_config: DataTransformationConfig):

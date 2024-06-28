@@ -6,7 +6,7 @@ from src.MushroomClassification import logger
 from dotenv import load_dotenv
 
 # load the env variables for the mlflow tracking
-# load_dotenv()
+load_dotenv()
 
 STAGE_NAME = "DATA INGESTION STAGE"
 try:
