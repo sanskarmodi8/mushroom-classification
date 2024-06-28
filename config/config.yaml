@@ -16,9 +16,11 @@ model_training:
   transformed_data: artifacts/data_transformation/df_transformed.csv
   model: artifacts/model_training/decision_tree_model.joblib
   test_data: artifacts/model_training/test_data.csv
+  mlflow_tracking_uri: https://dagshub.com/sanskarmodi8/mushroom-classification.mlflow
 
 model_evaluation:
   root_dir: artifacts/model_evaluation
   model: artifacts/model_training/decision_tree_model.joblib
   test_data: artifacts/model_training/test_data.csv
   scores: artifacts/model_evaluation/scores.json
+  mlflow_tracking_uri: https://dagshub.com/sanskarmodi8/mushroom-classification.mlflow

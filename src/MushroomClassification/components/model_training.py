@@ -6,6 +6,9 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from MushroomClassification.utils.common import save_bin, save_json
 from pathlib import Path
+import mlflow
+from urllib.parse import urlparse
+import mlflow.sklearn
 
 class ModelTraining:
     def __init__(self, config:ModelTrainingConfig):
@@ -27,7 +30,25 @@ class ModelTraining:
         test_df.to_csv(self.config.test_data, index=False)
         logger.info(f"Saved the test dataset to - {self.config.test_data}")
         
-    def train_model(self):
+    def train_model_with_logging_into_mlflow(self):
+        
+        # configure mlflow for logging and tracking
+        mlflow.set_tracking_uri(self.config.mlflow_tracking_uri)
+        with mlflow.start_run():
+            
+            model = DecisionTreeClassifier(**self.config.model_params)
+            model.fit(self.X_train, self.y_train)
+            
+            # Log model parameters
+            mlflow.log_params(self.config.model_params)
+            
+            # Save the model using mlflow
+            mlflow.sklearn.log_model(model, "model")
+            save_bin(model, Path(self.config.model))
+            
+            logger.info(f"Model trained and saved at - {self.config.model}")
+            
+    def train_model_without_logging_into_mlflow(self):
         model= DecisionTreeClassifier(**self.config.model_params)
         model.fit(self.X_train, self.y_train)
         save_bin(model, Path(self.config.model))

@@ -22,6 +22,7 @@ class ModelTrainingConfig:
     transformed_data: Path
     model_params: ConfigBox
     test_data: Path
+    mlflow_tracking_uri: str
     
 @dataclass(frozen=True)
 class ModelEvaluationConfig:
@@ -29,3 +30,4 @@ class ModelEvaluationConfig:
     model: Path
     test_data: Path
     scores: Path
+    mlflow_tracking_uri: str

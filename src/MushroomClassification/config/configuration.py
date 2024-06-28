@@ -30,7 +30,8 @@ class ConfigurationManager:
                                 model=config.model,
                                 transformed_data=config.transformed_data,
                                 model_params=self.params.model_params,
-                                test_data= config.test_data)
+                                test_data= config.test_data,
+                                mlflow_tracking_uri=config.mlflow_tracking_uri)
         
     def get_model_evaluation_config(self) -> ModelEvaluationConfig:
         config = self.config.model_evaluation
@@ -38,4 +39,5 @@ class ConfigurationManager:
         return ModelEvaluationConfig(root_dir=config.root_dir,
                                     model=config.model,
                                     test_data=config.test_data,
-                                    scores=config.scores)
+                                    scores=config.scores,
+                                    mlflow_tracking_uri=config.mlflow_tracking_uri)
