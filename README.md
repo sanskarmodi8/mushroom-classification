@@ -3,6 +3,7 @@
 This project uses [Mushroom Classification Dataset](https://www.kaggle.com/datasets/uciml/mushroom-classification) from Kaggle and aims to classify a Mushroom as edible or poisonous.
 
 Deployment is done on Azure Portal, [click here](https://classifymushroom.azurewebsites.net/) to visit the deployed api.
+The response '0' suggests that the mushroom is edible and response '1' suggests that the mushroom is poisonous.
 
 This project mainly utilizes following tools and libraries :
 
