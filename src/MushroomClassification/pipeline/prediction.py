@@ -1,6 +1,7 @@
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import mlflow
+import joblib
 
 class Prediction:
     def __init__(self, input_data):
@@ -48,7 +49,15 @@ class Prediction:
         
         # load model from mlflow 
         logged_model = 'runs:/6ffbead0cec3476c8b6f1df39657a511/model'
-        model = mlflow.pyfunc.load_model(logged_model)
+        try:
+            # Attempt to load the model from MLflow
+            model = mlflow.pyfunc.load_model(logged_model)
+            print("MLflow model loaded successfully")
+        except Exception as e:
+            print(f"Error loading MLflow model: {e}")
+            # Fallback to loading the local model
+            model = joblib.load("../../../artifacts/model_training/decision_tree_model.joblib")
+            print("Local model loaded successfully")
         
         # return the result 
         return model.predict(self.df).tolist()
