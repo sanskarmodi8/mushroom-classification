@@ -9,8 +9,8 @@ class ModelTrainingPipeline:
         
     def main(self):
         self.model_training.data_splits()
-        # self.model_training.train_model_with_logging_into_mlflow()
-        self.model_training.train_model_without_logging_into_mlflow()
+        self.model_training.train_model_with_logging_into_mlflow()
+        # self.model_training.train_model_without_logging_into_mlflow()
         
 if __name__=="__main__":
     STAGE_NAME = "MODEL TRAINING STAGE"
