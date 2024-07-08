@@ -4,6 +4,8 @@ This project uses [Mushroom Classification Dataset](https://www.kaggle.com/datas
 
 Deployment is done on Streamlit Cloud, [click here](https://mushroom-classification.streamlit.app/) to visit the deployed app.
 
+![Mushroom Image](https://imgs.search.brave.com/FU44oOE0mC2dOCkKK6kFrPbH85ZCEmAkAVHUHcl9Pzk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzA2LzAy/LzU4LzA2MDI1ODQ5/NWNmMTNjM2JhMGJk/Y2E1NDBlY2Y5Mzhm/LmpwZw)
+
 This project mainly utilizes following tools and libraries :
 
 - Numpy, Pandas, Scikit Learn (for data handling, pipelines, models, etc)
