@@ -1,6 +1,8 @@
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import mlflow
+from pathlib import Path
+from MushroomClassification.utils.common import load_bin
 import joblib
 
 class Prediction:
@@ -44,6 +46,8 @@ class Prediction:
         
     def classify(self):
         
+        model=None
+        
         # transform the data 
         self.transform()
         
@@ -55,9 +59,11 @@ class Prediction:
             print("MLflow model loaded successfully")
         except Exception as e:
             print(f"Error loading MLflow model: {e}")
-            # Fallback to loading the local model
-            model = joblib.load("../../../artifacts/model_training/decision_tree_model.joblib")
-            print("Local model loaded successfully")
+            
+            if model==None:
+                # Fallback to loading the local model
+                model = load_bin(Path("artifacts/model_training/decision_tree_model.joblib"))
+                print("Local model loaded successfully")
         
         # return the result 
         return model.predict(self.df).tolist()

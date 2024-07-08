@@ -18,4 +18,5 @@ pydantic
 python-multipart
 xgboost
 python-dotenv
+streamlit
 -e .
