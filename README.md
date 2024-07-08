@@ -11,9 +11,8 @@ This project mainly utilizes following tools and libraries :
 - MLFLOW and Dagshub (for experiment tracking and model registry)
 - DVC (for pipeline versioning)
 - FastAPI (for server)
+- Streamlit application for user interface (alternative to fastapi app)
 - Docker (for containerization)
-- ACR (for Docker image registration)
-- Azure Web App for Containers (for running the container)
 
 ## Table of Contents
 
@@ -38,7 +37,8 @@ The project follows a modular structure for better organization and maintainabil
     - `constants/`: Constants used throughout the project.
 - `config/`: Base Configuration for each stage of the project.
 - `notebook/`: Directory for trials, experiments and prototype code in jupyter notebook.
-- `app.py`: FastAPI server.
+- `fastapiApp.py`: FastAPI server.
+- `streamlitApp.py`: Streamlit application.
 - `Dockerfile`: Docker configuration for containerization.
 - `requirements.txt`: Project dependencies.
 - `setup.py`: Setup script for installing the project.
@@ -105,7 +105,13 @@ python src/MushroomClassification/pipeline/stage_04_model_evaluation.py
 Change the port to 8080 in app.py file and then,
 
 ```bash
-python app.py
+python fastapiApp.py
+```
+
+### To start the Streamlit application :
+
+```bash
+streamlit run streamlitApp.py
 ```
 
 ## Contributing
