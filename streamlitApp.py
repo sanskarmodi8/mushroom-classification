@@ -20,7 +20,7 @@ class Input(BaseModel):
     population: str = Field(..., description="Choose population: 'v' for several, 'o' for others", pattern='[vo]')
 
 # Streamlit app
-st.title("Mushroom Classification Prediction")
+st.title("Mushroom Classification")
 
 with st.form("prediction_form"): 
     bruises = st.selectbox("Bruises", options=['t', 'f'], help="Choose 't' for bruises or 'f' otherwise")
