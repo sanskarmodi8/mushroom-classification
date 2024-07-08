@@ -2,8 +2,7 @@
 
 This project uses [Mushroom Classification Dataset](https://www.kaggle.com/datasets/uciml/mushroom-classification) from Kaggle and aims to classify a Mushroom as edible or poisonous.
 
-Deployment is done on Azure Portal, [click here](https://classifymushroom.azurewebsites.net/) to visit the deployed api.
-The response '0' suggests that the mushroom is edible and response '1' suggests that the mushroom is poisonous.
+Deployment is done on Streamlit Cloud, [click here](https://mushroom-classification.streamlit.app/) to visit the deployed app.
 
 This project mainly utilizes following tools and libraries :
 
@@ -107,6 +106,7 @@ Change the port to 8080 in app.py file and then,
 ```bash
 python fastapiApp.py
 ```
+The response '0' suggests that the mushroom is edible and response '1' suggests that the mushroom is poisonous.
 
 ### To start the Streamlit application :
 
