@@ -6,10 +6,14 @@ from pathlib import Path
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 import mlflow
 from urllib.parse import urlparse
+from dotenv import load_dotenv
+
 
 class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):
         self.config = config
+
+        load_dotenv() # load the env vars from .env file
         
         # load the test data and the model
         self.df = pd.read_csv(self.config.test_data)
