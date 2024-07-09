@@ -9,10 +9,13 @@ from pathlib import Path
 import mlflow
 from urllib.parse import urlparse
 import mlflow.sklearn
+from dotenv import load_dotenv
 
 class ModelTraining:
     def __init__(self, config:ModelTrainingConfig):
         self.config = config
+
+        load_dotenv() # load the env vars from .env file
         
         # load transformed data 
         self.df = pd.read_csv(self.config.transformed_data)
