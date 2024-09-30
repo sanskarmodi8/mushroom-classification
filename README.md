@@ -64,6 +64,8 @@ This project utilizes the [Mushroom Classification Dataset](https://www.kaggle.c
 
 ## 🏃‍♂️ Usage
 
+On Ubuntu you can use `bash format.sh` to format the python files in the current directory.
+
 ### Running the Complete Pipeline
 
 ```bash
