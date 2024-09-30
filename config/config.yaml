@@ -9,7 +9,7 @@ data_ingestion:
 data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_ingestion/mushrooms.csv
-  transformed_data_dir: artifacts/data_transformation
+  transformed_data: artifacts/data_transformation/df_transformed.csv
 
 model_training:
   root_dir: artifacts/model_training

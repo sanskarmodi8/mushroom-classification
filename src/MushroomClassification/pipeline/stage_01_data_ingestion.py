@@ -1,24 +1,36 @@
-from MushroomClassification.components.data_ingestion import DataIngestion
+from zenml.steps import step
+
 from MushroomClassification import logger
+from MushroomClassification.components.data_ingestion import DataIngestion
 from MushroomClassification.config.configuration import ConfigurationManager
 
-class DataIngestionPipeline:
-    def __init__(self):
-        self.config_manager = ConfigurationManager()
-        self.config = self.config_manager.get_data_ingestion_config()
-        self.data_ingestion = DataIngestion(self.config)
-        
-    def main(self):
-        self.data_ingestion.download_file()
-        self.data_ingestion.extract_zip_file()
-        
-if __name__ == '__main__':
-    STAGE_NAME = "DATA INGESTION STAGE"
+STAGE_NAME = "Data Ingestion Stage"
+
+
+@step
+def data_ingestion_step() -> bool:
+    """
+    This ZenML step handles the data ingestion process, which involves downloading
+    and extracting the dataset.
+    """
     try:
-        logger.info(f"\n\n>>>>>> {STAGE_NAME} started <<<<<<\n\n")
-        obj = DataIngestionPipeline()
-        obj.main()
-        logger.info(f"\n\n>>>>>> stage {STAGE_NAME} completed <<<<<<\n\n")
+
+        logger.info(f"\n\n>>>>> {STAGE_NAME} started. <<<<<\n\n")
+
+        config_manager = ConfigurationManager()
+        config = config_manager.get_data_ingestion_config()
+        data_ingestion = DataIngestion(config)
+        data_ingestion = data_ingestion.create_data_ingestion()
+
+        # Start the data ingestion process
+        logger.info("Downloading data...")
+        data_ingestion.download_file()
+
+        logger.info("Extracting data...")
+        data_ingestion.extract_zip_file()
+
+        logger.info(f"\n\n>>>>> {STAGE_NAME} completed. <<<<<\n\n")
+        return True
     except Exception as e:
-        logger.exception(e)
+        logger.exception(f"Error during data ingestion: {e}")
         raise e

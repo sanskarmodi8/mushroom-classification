@@ -1,13 +1,16 @@
-import os
-from box.exceptions import BoxValueError
-import yaml
-from MushroomClassification import logger
 import json
-import joblib
-from ensure import ensure_annotations
-from box import ConfigBox
+import os
 from pathlib import Path
 from typing import Any
+
+import joblib
+import yaml
+from box import ConfigBox
+from box.exceptions import BoxValueError
+from ensure import ensure_annotations
+
+from MushroomClassification import logger
+
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -32,7 +35,6 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
         raise ValueError("yaml file is empty")
     except Exception as e:
         raise e
-    
 
 
 @ensure_annotations
@@ -61,7 +63,6 @@ def save_json(path: Path, data: dict):
         json.dump(data, f, indent=4)
 
     logger.info(f"json file saved at: {path}")
-
 
 
 @ensure_annotations

@@ -1,49 +1,24 @@
-from src.MushroomClassification.pipeline.stage_01_data_ingestion import DataIngestionPipeline
-from src.MushroomClassification.pipeline.stage_02_data_transformation import DataTransformationPipeline
-from src.MushroomClassification.pipeline.stage_03_model_training import ModelTrainingPipeline
-from src.MushroomClassification.pipeline.stage_04_model_evaluation import ModelEvaluationPipeline
-from src.MushroomClassification import logger
 from dotenv import load_dotenv
+
+from src.MushroomClassification.pipeline.pipeline import \
+    classification_pipeline
+from src.MushroomClassification.pipeline.stage_01_data_ingestion import \
+    data_ingestion_step
+from src.MushroomClassification.pipeline.stage_02_data_transformation import \
+    data_transformation_step
+from src.MushroomClassification.pipeline.stage_03_model_training import \
+    model_training_step
+from src.MushroomClassification.pipeline.stage_04_model_evaluation import \
+    model_evaluation_step
 
 # load the env variables for the mlflow tracking
 load_dotenv()
 
-STAGE_NAME = "DATA INGESTION STAGE"
-try:
-    logger.info(f"\n\n>>>>>> {STAGE_NAME} started <<<<<<\n\n")
-    obj = DataIngestionPipeline()
-    obj.main()
-    logger.info(f"\n\n>>>>>> stage {STAGE_NAME} completed <<<<<<\n\n")
-except Exception as e:
-    logger.exception(e)
-    raise e
-
-STAGE_NAME = "DATA TRANSFORMATION STAGE"
-try:
-    logger.info(f"\n\n>>>>>> {STAGE_NAME} started <<<<<<\n\n")
-    obj = DataTransformationPipeline()
-    obj.main()
-    logger.info(f"\n\n>>>>>> stage {STAGE_NAME} completed <<<<<<\n\n")
-except Exception as e:
-    logger.exception(e)
-    raise e
-
-STAGE_NAME = "MODEL TRAINING STAGE"
-try:
-    logger.info(f"\n\n>>>>>> {STAGE_NAME} started <<<<<<\n\n")
-    obj = ModelTrainingPipeline()
-    obj.main()
-    logger.info(f"\n\n>>>>>> stage {STAGE_NAME} completed <<<<<<\n\n")
-except Exception as e:
-    logger.exception(e)
-    raise e
-
-STAGE_NAME = "MODEL EVALUATION STAGE"
-try:
-    logger.info(f"\n\n>>>>>> {STAGE_NAME} started <<<<<<\n\n")
-    obj = ModelEvaluationPipeline()
-    obj.main()
-    logger.info(f"\n\n>>>>>> stage {STAGE_NAME} completed <<<<<<\n\n")
-except Exception as e:
-    logger.exception(e)
-    raise e
+if __name__ == "__main__":
+    # run the pipeline with all the steps
+    classification_pipeline(
+        data_ingestion_step(),
+        data_transformation_step(),
+        model_training_step(),
+        model_evaluation_step(),
+    ).run()

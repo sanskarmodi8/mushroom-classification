@@ -1,132 +1,116 @@
-# Mushroom Classifier
+# 🍄 Mushroom Classifier
 
-This project uses [Mushroom Classification Dataset](https://www.kaggle.com/datasets/uciml/mushroom-classification) from Kaggle and aims to classify a Mushroom as edible or poisonous.
+## 📊 Project Overview
 
-Deployment is done on Streamlit Cloud, [click here](https://mushroom-classification.streamlit.app/) to visit the deployed app.
+This project utilizes the [Mushroom Classification Dataset](https://www.kaggle.com/datasets/uciml/mushroom-classification) from Kaggle to classify mushrooms as edible or poisonous. The deployed application is available on Streamlit Cloud.
+
+🚀 [**Visit the Deployed App**](https://mushroom-classification.streamlit.app/)
 
 ![Mushroom Image](https://imgs.search.brave.com/FU44oOE0mC2dOCkKK6kFrPbH85ZCEmAkAVHUHcl9Pzk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzA2LzAy/LzU4LzA2MDI1ODQ5/NWNmMTNjM2JhMGJk/Y2E1NDBlY2Y5Mzhm/LmpwZw)
 
-This project mainly utilizes following tools and libraries :
 
-- Numpy, Pandas, Scikit Learn (for data handling, pipelines, models, etc)
-- MLFLOW and Dagshub (for experiment tracking and model registry)
-- DVC (for pipeline versioning)
-- FastAPI (for server)
-- Streamlit application for user interface (alternative to fastapi app)
-- Docker (for containerization)
+### 🛠️ Key Technologies
 
-## Table of Contents
+- **Data Handling & Machine Learning**: NumPy, Pandas, Scikit-learn
+- **Experiment Tracking**: MLflow, DagsHub
+- **Orchestration**: ZenML
+- **User Interface**: Streamlit
+- **Containerization**: Docker
 
-- [Project Structure](#project-structure)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+## 📁 Project Structure
 
-## Project Structure
-
-The project follows a modular structure for better organization and maintainability. Here's an overview of the directory structure:
-
-- `.github/workflows`: GitHub Actions workflows for CI/CD.
-- `src/`: Source code directory.
-  - `MushroomClassification/`
-    - `components/`: Modules for different stages of the pipeline.
-    - `utils/`: Utility functions.
-    - `config/`: Configuration for each of the components.
-    - `pipeline/`: Scripts for pipeline stages.
-    - `entity/`: Data entity classes.
-    - `constants/`: Constants used throughout the project.
-- `config/`: Base Configuration for each stage of the project.
-- `notebook/`: Directory for trials, experiments and prototype code in jupyter notebook.
-- `fastapiApp.py`: FastAPI server.
-- `streamlitApp.py`: Streamlit application.
-- `Dockerfile`: Docker configuration for containerization.
-- `requirements.txt`: Project dependencies.
-- `setup.py`: Setup script for installing the project.
-- `main.py`: Main script for execution of the complete pipeline.
-- `params.yaml`: All the parameters used in the complete pipeline.
-- `dvc.yaml`: Configuration file for DVC Pipeline Versioning.
-
-## Setup
-
-To set up the project environment, follow these steps:
-
-1. Clone this repository.
-2. Install Python 3.8 and ensure pip is installed.
-3. Install project dependencies using `pip install -r requirements.txt`.
-4. Ensure Docker is installed if you intend to use containerization.
-
-## Usage
-
-### To directly run the complete Data ingestion, Data cleaning, Model preparation and training and Model evaluation pipeline
-
-run the command
-
-```bash
-dvc init
-dvc repro
+```
+.
+├── .github/workflows/      # GitHub Actions workflows
+├── src/
+│   └── MushroomClassification/
+│       ├── components/     # Pipeline stage modules
+│       ├── utils/          # Utility functions
+│       ├── config/         # Component configurations
+│       ├── pipeline/       # Pipeline stage scripts
+│       ├── entity/         # Data entity classes
+│       └── constants/      # Project constants
+├── config/                 # Base configurations
+├── notebook/               # Jupyter notebooks for experiments
+├── streamlitApp.py         # Streamlit application
+├── Dockerfile              # Docker configuration
+├── requirements.txt        # Project dependencies
+├── setup.py                # Project setup script
+├── main.py                 # Main execution script
+├── params.yaml             # Pipeline parameters
+└── format.sh               # Formatting script
 ```
 
-### To explicitly run each pipeline follow following commands-
+## 🚀 Getting Started
 
-#### Data Ingestion
+### Prerequisites
 
-To download and save the dataset, run:
+- Python 3.8+
+- pip
+- Docker (optional, for containerization)
 
-```bash
-python src/MushroomClassification/pipeline/stage_01_data_ingestion.py
-```
+### Setup
 
-#### Preprocessing the Data
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/mushroom-classifier.git
+   cd mushroom-classifier
+   ```
 
-To preprocess and save the cleaned data, run:
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-python src/MushroomClassification/pipeline/stage_02_data_transformation.py
-```
+## 🏃‍♂️ Usage
 
-#### Model Preparation and Training
-
-To train the model, execute:
-
-```bash
-python src/MushroomClassification/pipeline/stage_03_model_training.py
-```
-
-#### Model Evaluation
-
-To evaluate the trained model, run:
+### Running the Complete Pipeline
 
 ```bash
-python src/MushroomClassification/pipeline/stage_04_model_evaluation.py
+zenml init
+python main.py
 ```
 
-### To start the FastAPI server for making prediction :
-
-Change the port to 8080 in app.py file and then,
-
+If you want to use MLFLOW then follow below commands :
 ```bash
-python fastapiApp.py
+zenml init
+zenml experiment-tracker register mlflow_tracker --flavor=mlflow \
+  --tracking_uri=<your_mlflow_uri> \
+  --tracking_username=<your_mlflow_username> \
+  --tracking_password=<your_mlflow_password>
+zenml artifact-store register my_artifact_store --flavor=local
+zenml orchestrator register my_orchestrator --flavor=local
+zenml stack register mushroom_classification_stack \
+  --orchestrator=my_orchestrator \
+  --artifact-store=my_artifact_store
+zenml stack set mushroom_classification_stack
+python main.py
 ```
-The response '0' suggests that the mushroom is edible and response '1' suggests that the mushroom is poisonous.
 
-### To start the Streamlit application :
+Also set `enable_mlflow_logging = True` in src/MushroomClassification/pipeline/stage_03_model_training.py and src/MushroomClassification/pipeline/stage_04_model_evaluation.py if you intend to use MLFLOW.
+
+### Launching the Streamlit App
 
 ```bash
 streamlit run streamlitApp.py
 ```
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+We welcome contributions! To contribute:
 
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/new-feature`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/new-feature`).
-5. Create a new Pull Request.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Please ensure that your contributions adhere to the project's coding standards.
+Please ensure your code adheres to the project's coding standards.
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Built with 💙 by Sanskar

@@ -1,6 +1,6 @@
-artifact_location: file:///home/lenovo/mushroom-classification/mlruns/0
-creation_time: 1720421493527
+artifact_location: mlflow-artifacts:/0
+creation_time: 1727690833319
 experiment_id: '0'
-last_update_time: 1720421493527
+last_update_time: 1727690833319
 lifecycle_stage: active
 name: Default
