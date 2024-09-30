@@ -87,7 +87,7 @@ zenml stack set mushroom_classification_stack
 python main.py
 ```
 
-Also set `enable_mlflow_logging = True` in src/MushroomClassification/pipeline/stage_03_model_training.py and src/MushroomClassification/pipeline/stage_04_model_evaluation.py if you intend to use MLFLOW.
+Also set `enable_mlflow_logging = True` in `src/MushroomClassification/pipeline/stage_03_model_training.py` and `src/MushroomClassification/pipeline/stage_04_model_evaluation.py` if you intend to use MLFLOW.
 
 ### Launching the Streamlit App
 
